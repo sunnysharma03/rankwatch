@@ -14,3 +14,9 @@ A fixed 70 length string with cost 11 and PASSWORD_BCRYPT is being generated and
 ```
 so that there is a extra layer of security in terms of database and noone can easily dehash the password.
 The sessions are used properly and works well.
+
+## For demo purpose you can use these credentials
+```
+username: sachin@gmail.com
+password: sunny
+```

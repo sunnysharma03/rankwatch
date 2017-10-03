@@ -1,0 +1,111 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Send Email</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href ="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<style>
+
+			body, html {
+    height: 100%;
+}
+			.bg { 
+					/* The image used */
+				   background: #3a6186; /* fallback for old browsers */
+				   background: -webkit-linear-gradient(to left, #3a6186 , #89253e); /* Chrome 10-25, Safari 5.1-6 */
+				   background: linear-gradient(to left, #3a6186 , #89253e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+				   color : #fff;    
+
+					/* Full height */
+					height: 100%; 
+
+					/* Center and scale the image nicely */
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+			
+		</style>
+		
+	</head>
+	<body>
+	
+	<section class="bg">
+		<div class="container">
+		<h1 align="center">Send Email</h1>
+		<form autocomplete="off" id="mail">
+			<div class="form-group col-md-6">
+				<label>Name</label>
+				<input type="text" style="text-transform: capitalize" placeholder="Enter Name of Receiver" class="form-control" id="name" maxlength="100" required>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label>Email</label>
+				<input style="text-transform: lowercase" type="email" placeholder="Enter Email Address" class="form-control" maxlength="255" id="email" required>
+			</div>
+
+			<div class="form-group col-md-12">
+				<label>Subject</label>
+				<input style="text-transform: capitalize" type="text" class="form-control" placeholder="Enter Mail Subject" id="subject" maxlength="255" required>
+			</div>
+
+			<div class="form-group col-md-12">
+				<label>Description</label>
+				<textarea class="form-control" id="msg" placeholder="Enter your message" style="resize: none" rows="12" maxlength="1000"></textarea>
+			</div>	
+
+			<button type="button" onClick="fetching()" class="btn btn-primary">Submit</button>
+		</form>
+		
+		<div align="center" id="loading" style="display:none;padding-top: 50px">
+				<i id="loading-i"></i>
+		</div>
+		</div>
+	</section>
+	
+	<!--scripts-->
+		<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		
+		<script>
+			function fetching(){
+				var names = $('#name').val();
+				var emails = $('#email').val();
+				var heads = $('#subject').val();
+				var msgs = $('#msg').val();
+				//console.log('starting ajax');
+				
+				
+				$('#mail').hide();
+				$('#loading').show();
+				$("#loading-i").addClass("fa fa-spinner fa-pulse fa-4x fa-fw");
+				
+				$.ajax({
+                type:'POST',
+					url:'send.php',
+					data:{name: names, email: emails,head: heads ,msg: msgs },
+					success: function(data){
+						console.log(data);
+						if(data == 'Send'){
+							$("#loading-i").removeClass();
+							$("#loading-i").addClass("fa fa-check fa-4x");
+							$("#loading-i").css("color", "green");
+						}
+						else if(data == 'Sorry'){
+							$("#loading-i").removeClass();
+							$("#loading-i").addClass("fa fa-close fa-4x");
+							$("#loading-i").css("color", "red");
+						}
+					}
+				});
+			
+			}
+		</script>
+	</body>
+</html>

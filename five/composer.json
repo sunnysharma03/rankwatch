@@ -1,0 +1,8 @@
+{
+    "require": {
+        "gentle/bitbucket-api": "^1.0",
+        "league/oauth1-client": "^1.7",
+        "league/oauth2-client": "^2.2",
+        "stevenmaguire/oauth2-bitbucket": "^2.0"
+    }
+}
